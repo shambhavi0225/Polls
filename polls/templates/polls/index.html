@@ -1,0 +1,94 @@
+<!-- polls/templates/polls/index.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Latest Questions</title>
+    <style>
+        body {
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(to bottom, #d1bdc1, #ffc0cb);
+            font-family: Arial, sans-serif;
+        }
+    
+        .container {
+            max-width: 600px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+    
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+    
+        .error-message {
+            color: #f00;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+    
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+    
+        li {
+            color: #333;
+            font-size: 16px;
+            margin-bottom: 10px;
+            counter-increment: question-counter;
+        }
+    
+        li a {
+            text-decoration: none;
+            color: #007bff;
+            transition: color 0.2s;
+        }
+    
+        li a:hover {
+            color: #0056b3;
+        }
+    
+        li::before {
+            content: counter(question-counter) ". ";
+            color: #555;
+            margin-right: 5px;
+        }
+    
+        input[type="submit"] {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Latest Questions</h1>
+        <ul>
+            {% for question in latest_question_list %}
+                <li>
+                    <a href="{% url 'polls:detail' question.id %}">
+                        {{ question.question_text }}
+                    </a>
+                </li>
+            {% empty %}
+                <li>No questions available.</li>
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+</html>
